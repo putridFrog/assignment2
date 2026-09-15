@@ -14,6 +14,20 @@ cashier_instance = Cashier()
 
 def main():
     ###  write the rest of the codes ###
+    run = True
+    while run:
+        ans = input("What would you like? (small/medium/large/off/report):")
+        if ans == "small" or ans == "medium" or ans == "large":
+            if sandwich_maker_instance.check_resources(recipes[ans]["ingredients"]):
+                coins = cashier_instance.process_coins()
+                if cashier_instance.transaction_result(coins, recipes[ans]["cost"]):
+                    sandwich_maker_instance.make_sandwich(ans, recipes[ans]["ingredients"])
+        elif ans == "report":
+            print(f"Bread: {sandwich_maker_instance.machine_resources['bread']} slice(s)")
+            print(f"Ham: {sandwich_maker_instance.machine_resources['ham']} slice(s)")
+            print(f"Cheese: {sandwich_maker_instance.machine_resources['cheese']} ounce(s)")
+        elif ans == "off":
+            run = False
 
 
 if __name__=="__main__":
