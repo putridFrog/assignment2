@@ -4,7 +4,7 @@ from ..models import models, schemas
 
 
 def create(db: Session, sandwich):
-    #new instance of sandwich model
+    # new instance of sandwich model
     db_sandwich = models.Sandwich(
         sandwich_name=sandwich.sandwich_name,
         price=sandwich.price
@@ -26,7 +26,7 @@ def read_one(db: Session, sandwich_id):
 
 
 def update(db: Session, sandwich_id, sandwich):
-    db_sandwich = db.query(models.Sandwich).filter(models.Sandwich == sandwich_id)
+    db_sandwich = db.query(models.Sandwich).filter(models.Sandwich.id == sandwich_id)
 
     update_data = sandwich.model_dump(exclude_unset=True)
 
@@ -37,7 +37,7 @@ def update(db: Session, sandwich_id, sandwich):
 
 
 def delete(db: Session, sandwich_id):
-    db_sandwich = db.query(models.Sandwich).filter(models.Sandwich == sandwich_id)
+    db_sandwich = db.query(models.Sandwich).filter(models.Sandwich.id == sandwich_id)
     db_sandwich.delete(synchronize_session=False)
     db.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
